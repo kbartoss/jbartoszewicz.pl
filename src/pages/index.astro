@@ -1,0 +1,21 @@
+---
+import Welcome from '../components/Welcome.astro';
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<Layout>
+  <main class="container mx-auto px-4 py-8">
+    <Welcome />
+
+    <footer class="mt-12 text-center text-sm text-indigo-600 opacity-80">
+      <p>
+        Powered by <a href="https://astro.build" class="font-medium hover:underline">Astro</a> | Styled
+        with <a href="https://tailwindcss.com" class="font-medium hover:underline">Tailwind CSS</a>
+      </p>
+    </footer>
+  </main>
+</Layout>

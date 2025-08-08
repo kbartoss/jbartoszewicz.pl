@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+
+/* Globalne style */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
