@@ -16,7 +16,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, currentPath, classNa
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
 
   return (
@@ -24,7 +24,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, currentPath, classNa
       <button
         onClick={toggleMenu}
         className="flex h-8 w-8 cursor-pointer flex-col items-center justify-center space-y-1"
-        aria-label="Toggle mobile menu"
+        aria-label={isOpen ? 'Zamknij menu' : 'Otwórz menu'}
+        aria-expanded={isOpen}
+        aria-controls="mobile-menu-panel"
       >
         <span
           className={`block h-0.5 w-6 bg-gray-800 transition-all duration-300 ease-in-out ${
@@ -43,7 +45,19 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, currentPath, classNa
         />
       </button>
 
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/30 backdrop-blur-[1px]"
+          onClick={toggleMenu}
+          aria-hidden="true"
+        />
+      )}
+
       <div
+        id="mobile-menu-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu mobilne"
         className={`fixed top-0 right-0 z-50 h-full w-[70%] transform bg-white shadow-xl transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
@@ -52,8 +66,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, currentPath, classNa
           <div className="flex justify-end p-4">
             <button
               onClick={toggleMenu}
+              id="mobile-menu-close"
               className="flex h-8 w-8 cursor-pointer flex-col items-center justify-center space-y-1"
-              aria-label="Close mobile menu"
+              aria-label="Zamknij menu"
             >
               <span className="block h-0.5 w-6 translate-y-1.5 rotate-45 bg-gray-800" />
               <span className="block h-0.5 w-6 bg-gray-800 opacity-0" />
