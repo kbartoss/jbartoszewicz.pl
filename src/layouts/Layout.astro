@@ -1,14 +1,23 @@
+---
+import '../styles/global.css';
+
+import Navbar from '../components/astro/Navbar.astro';
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="pl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>JBartoszewicz - Template Astro</title>
+    <title>JBartoszewicz.pl</title>
   </head>
   <body class="min-h-screen bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-100">
-    <slot />
+    <div class="mx-auto max-w-[1440px]">
+      <Navbar />
+      <slot />
+    </div>
   </body>
 </html>
 
