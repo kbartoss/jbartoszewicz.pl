@@ -1,6 +1,8 @@
 ---
 // src/components/astro/Navbar.astro
 
+import MobileMenu from '../MobileMenu';
+
 interface MenuItem {
   href: string;
   label: string;
@@ -22,7 +24,8 @@ const currentPath = Astro.url.pathname;
   <a href="/" class="flex items-center">
     <img src="/assets/logo.png" alt="Logo" class="h-8 w-auto" />
   </a>
-  <ul class="flex items-center gap-6">
+
+  <ul class="hidden items-center gap-6 md:flex">
     {
       menuItems.map((item) => (
         <li>
@@ -38,5 +41,10 @@ const currentPath = Astro.url.pathname;
       ))
     }
   </ul>
-  <a href="/contact" class="btn btn-neutral cursor-pointer">Let's talk</a>
+
+  <a href="/contact" class="btn btn-neutral hidden cursor-pointer justify-center md:flex">
+    Let's talk
+  </a>
+
+  <MobileMenu client:load menuItems={menuItems} currentPath={currentPath} />
 </nav>
