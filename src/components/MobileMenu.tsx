@@ -69,7 +69,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menuItems, currentPath, classNa
                     href={item.href}
                     onClick={toggleMenu}
                     className={`text-xl font-normal transition-colors duration-300 ease-in-out hover:text-black ${
-                      currentPath === item.href ? 'font-semibold text-black' : 'text-[#82888C]'
+                      currentPath === item.href ? 'font-semibold text-black' : 'text-gray-custom'
                     }`}
                   >
                     {item.label}

@@ -1,6 +1,10 @@
 @import 'tailwindcss';
 @plugin "daisyui";
 
+@theme {
+  --color-gray-custom: #82888C;
+}
+
 /* Globalne style */
 html {
   scroll-behavior: smooth;
