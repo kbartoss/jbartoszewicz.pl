@@ -14,10 +14,12 @@ import Navbar from '../components/astro/Navbar.astro';
     <title>JBartoszewicz.pl</title>
     <slot name="head" />
   </head>
-  <body class="min-h-screen bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-100">
-    <div class="mx-auto max-w-[1440px]">
+  <body class="min-h-screen">
+    <div class="mx-auto bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-100">
       <Navbar />
-      <slot />
+      <div class="mx-auto max-w-[1440px]">
+        <slot />
+      </div>
     </div>
   </body>
 </html>

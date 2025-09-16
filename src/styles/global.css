@@ -2,7 +2,7 @@
 @plugin "daisyui";
 
 @theme {
-  --color-gray-custom: #82888C;
+  --color-gray-custom: #82888c;
 }
 
 /* Globalne style */
@@ -12,4 +12,17 @@ html {
 
 body {
   font-family: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Partners section animations */
+.partner-card {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition:
+    transform 800ms cubic-bezier(0.22, 0.94, 0.3, 1),
+    opacity 800ms cubic-bezier(0.22, 0.94, 0.3, 1);
+}
+.partner-card.visible {
+  opacity: 1;
+  transform: translateX(0);
 }
