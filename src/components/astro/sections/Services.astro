@@ -1,0 +1,175 @@
+---
+import { Image } from 'astro:assets';
+import PlusIcon from '../../icons/PlusIcon.astro';
+import SmartphoneIcon from '../../icons/SmartphoneIcon.astro';
+import mobDevImg1 from '../../../assets/images/mob_dev_img1.jpg';
+import mobDevImg2 from '../../../assets/images/mob_dev_img2.jpg';
+
+const services = [
+  { id: 1, title: 'Mobile development' },
+  { id: 2, title: 'Web development' },
+  { id: 3, title: 'Branding' },
+  { id: 4, title: 'Web design' },
+  { id: 5, title: 'UX/UI design' },
+  { id: 6, title: 'MVP launches' },
+];
+---
+
+<section
+  aria-labelledby="projects-heading"
+  class="relative isolate mx-auto flex max-w-[1320px] flex-col items-center justify-center gap-4 px-5 py-20 text-center md:gap-8 md:px-10"
+>
+  <div
+    class="rounded-full bg-[#F2F7F7] px-4 py-2 text-xs font-medium text-gray-700 shadow-sm md:text-sm"
+  >
+    <span>SERVICES</span>
+  </div>
+
+  <h2 id="projects-heading" class="text-[32px] font-semibold text-black md:text-[42px]">
+    Product development for <br />startups & tech teams
+  </h2>
+  <p class="max-w-2xl text-base text-gray-600">
+    We combine strategy, design, and engineering into one <br /> agile workflow.
+  </p>
+
+  <div class="flex w-full flex-col gap-2">
+    {services.map((service) => (
+      <div
+        class="service-item group overflow-hidden rounded-2xl bg-white text-black transition-all duration-500 ease-in-out"
+        data-expanded="false"
+      >
+        <div class="service-toggle flex cursor-pointer items-center justify-between p-10">
+          <div class="flex flex-1">
+            <p class="text-start text-base font-semibold">/{service.id}.</p>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div
+                  class="leading-icon flex h-10 w-10 scale-75 transform items-center justify-center rounded-xl bg-black opacity-0 transition-all duration-200 group-hover:scale-100 group-hover:opacity-100"
+                >
+                  <SmartphoneIcon />
+                </div>
+                <p
+                  class="service-title text-4xl font-medium text-[#98A6AA] transition group-hover:text-black"
+                >
+                  {service.title}
+                </p>
+              </div>
+              <span class="plus-icon inline-block transition-transform duration-300 ease-in-out">
+                <PlusIcon />
+              </span>
+            </div>
+
+            <!-- Rozwijana zawartość - tylko w prawej kolumnie -->
+            <div
+              class="expanded-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+            >
+              <div class="flex flex-col justify-start gap-4 pt-8">
+                <!-- Opis -->
+                <p class="text-start text-base leading-relaxed text-gray-600">
+                  Robust, scalable web apps — front to back. From marketing sites to complex
+                  platforms.
+                </p>
+
+                <!-- Obrazki telefonów -->
+                <div class="flex items-center justify-start gap-6">
+                  <div class="relative">
+                    <Image
+                      src={mobDevImg2}
+                      alt="Mobile app mockup on blue platform"
+                      class="h-32 w-auto rounded-2xl object-contain"
+                      loading="lazy"
+                      width={320}
+                      height={180}
+                    />
+                  </div>
+
+                  <div class="relative">
+                    <Image
+                      src={mobDevImg1}
+                      alt="Mobile app mockup in hand"
+                      class="h-32 w-auto rounded-2xl object-contain"
+                      loading="lazy"
+                      width={320}
+                      height={180}
+                    />
+                  </div>
+                </div>
+
+                <!-- Tagi funkcjonalności -->
+                <div class="flex flex-wrap gap-3">
+                  <div class="rounded-full border border-[#CEDADD] px-3 py-1">
+                    <p class="text-gray-custom text-sm">Cross-platform development</p>
+                  </div>
+                  <div class="rounded-full border border-[#CEDADD] px-3 py-1">
+                    <p class="text-gray-custom text-sm">Native iOS and Android builds</p>
+                  </div>
+                  <div class="rounded-full border border-[#CEDADD] px-3 py-1">
+                    <p class="text-gray-custom text-sm">API integration & backend support</p>
+                  </div>
+                  <div class="rounded-full border border-[#CEDADD] px-3 py-1">
+                    <p class="text-gray-custom text-sm">UI animations & interaction design</p>
+                  </div>
+                  <div class="rounded-full border border-[#CEDADD] px-3 py-1">
+                    <p class="text-gray-custom text-sm">App store deployment</p>
+                  </div>
+                  <div class="rounded-full border border-[#CEDADD] px-3 py-1">
+                    <p class="text-gray-custom text-sm">Continuous delivery</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const serviceToggles = document.querySelectorAll('.service-toggle');
+
+        serviceToggles.forEach((toggle) => {
+          toggle.addEventListener('click', (event) => {
+            const target = event.currentTarget as HTMLElement;
+            const serviceItem = target.closest('.service-item') as HTMLElement;
+            const expandedContent = serviceItem.querySelector('.expanded-content') as HTMLElement;
+            const plusIcon = serviceItem.querySelector('.plus-icon') as HTMLElement;
+            const isExpanded = serviceItem.getAttribute('data-expanded') === 'true';
+
+            if (isExpanded) {
+              // Zamykanie
+              serviceItem.setAttribute('data-expanded', 'false');
+              expandedContent.style.maxHeight = '0px';
+              plusIcon.style.transform = 'rotate(0deg)';
+            } else {
+              // Otwieranie
+              serviceItem.setAttribute('data-expanded', 'true');
+              expandedContent.style.maxHeight = expandedContent.scrollHeight + 'px';
+              plusIcon.style.transform = 'rotate(45deg)';
+            }
+          });
+        });
+      });
+    </script>
+  </div>
+
+  <style>
+    /* Utrzymuj efekt hover gdy element jest rozwinięty */
+    .service-item[data-expanded='true'] .leading-icon {
+      /* Ustaw zmienne Tailwind, tak by skala była 1 nawet bez hover */
+      --tw-scale-x: 1 !important;
+      --tw-scale-y: 1 !important;
+      opacity: 1 !important;
+    }
+
+    .service-item[data-expanded='true'] .service-title {
+      color: #000000 !important;
+    }
+
+    /* Jeśli JS ustawia rotację plus-ikony, nadal stosujemy domyślną gdy expanded */
+    .service-item[data-expanded='true'] .plus-icon {
+      transform: rotate(45deg);
+    }
+  </style>
+</section>
