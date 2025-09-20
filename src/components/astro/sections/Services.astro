@@ -127,6 +127,7 @@ const services = [
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
+        // Toggle rozwijanej zawartości
         const serviceToggles = document.querySelectorAll('.service-toggle');
 
         serviceToggles.forEach((toggle) => {
@@ -150,6 +151,40 @@ const services = [
             }
           });
         });
+
+        const serviceItems = document.querySelectorAll('.service-item');
+
+        const observerOptions = {
+          root: null,
+          rootMargin: '0px 0px -10% 0px',
+          threshold: 0.06,
+        };
+
+        function revealItem(entry: IntersectionObserverEntry) {
+          const el = entry.target as HTMLElement;
+          if (entry.isIntersecting) {
+            el.classList.add('revealed');
+            el.setAttribute('data-visible', 'true');
+            // Unobserve to avoid extra work
+            observer?.unobserve(el);
+          }
+        }
+
+        let observer: IntersectionObserver;
+        if ('IntersectionObserver' in window) {
+          observer = new IntersectionObserver((entries) => {
+            entries.forEach(revealItem);
+          }, observerOptions);
+
+          serviceItems.forEach((item) => observer.observe(item));
+        } else {
+          // Fallback: pokazujemy wszystkie elementy jeśli brak wsparcia
+          serviceItems.forEach((item) => {
+            const el = item as HTMLElement;
+            el.classList.add('revealed');
+            el.setAttribute('data-visible', 'true');
+          });
+        }
       });
     </script>
   </div>
@@ -170,6 +205,29 @@ const services = [
     /* Jeśli JS ustawia rotację plus-ikony, nadal stosujemy domyślną gdy expanded */
     .service-item[data-expanded='true'] .plus-icon {
       transform: rotate(45deg);
+    }
+
+    /* Scroll reveal - domyślnie ukryte, po wejściu w viewport dodajemy klasę .revealed */
+    .service-item {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s cubic-bezier(.2,.9,.3,1), transform 0.6s cubic-bezier(.2,.9,.3,1);
+    }
+
+    .service-item.revealed,
+    .service-item[data-visible='true'] {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Prefer reduced motion - wyłącz animacje */
+    @media (prefers-reduced-motion: reduce) {
+      .service-item,
+      .service-item .expanded-content,
+      .service-item .leading-icon,
+      .service-item .plus-icon {
+        transition: none !important;
+      }
     }
   </style>
 </section>
